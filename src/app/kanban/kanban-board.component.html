@@ -1,0 +1,130 @@
+<div class="kanban-container">
+  <div class="kanban-toolbar">
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="addColumn()"
+      class="add-column-btn"
+    >
+      <mat-icon>add</mat-icon> Add Column
+    </button>
+    <button
+      mat-stroked-button
+      (click)="undo()"
+      [disabled]="!undoStack.length"
+      class="undo-btn"
+    >
+      <mat-icon>undo</mat-icon> Undo
+    </button>
+    <button
+      mat-stroked-button
+      (click)="redo()"
+      [disabled]="!redoStack.length"
+      class="redo-btn"
+    >
+      <mat-icon>redo</mat-icon> Redo
+    </button>
+  </div>
+  <div
+    cdkDropList
+    [cdkDropListData]="columns"
+    class="kanban-board"
+    (cdkDropListDropped)="dropColumn($event)"
+  >
+    <div
+      *ngFor="let column of columns; let colIdx = index"
+      class="kanban-column"
+      [style.background]="column.color"
+      cdkDrag
+    >
+      <div class="column-header">
+        <h3
+          (dblclick)="editColumnTitle(column)"
+          tabindex="0"
+          (keydown.enter)="editColumnTitle(column)"
+        >
+          {{ column.title }}
+        </h3>
+        <button
+          mat-mini-fab
+          color="primary"
+          (click)="addCard(column)"
+          class="add-card-btn"
+          aria-label="Add card"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          style="color: #fff; background: rgba(255, 255, 255, 0.12);"
+          (click)="deleteColumn(colIdx)"
+          class="delete-column-btn"
+          aria-label="Delete column"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+        <button
+          mat-icon-button
+          (click)="pickColumnColor(column)"
+          class="color-picker-btn"
+          aria-label="Pick column color"
+        >
+          <mat-icon>palette</mat-icon>
+        </button>
+      </div>
+      <div
+        cdkDropList
+        [cdkDropListData]="column.cards"
+        class="kanban-cards"
+        (cdkDropListDropped)="dropCard($event, column)"
+        [cdkDropListConnectedTo]="cardDropListIds"
+        [id]="'cards-list-' + colIdx"
+      >
+        <app-kanban-card
+          *ngFor="let card of column.cards; let cardIdx = index"
+          cdkDrag
+          [card]="card"
+          (editCard)="editCard(column, card)"
+          (deleteCard)="deleteCard(column, cardIdx)"
+        ></app-kanban-card>
+      </div>
+    </div>
+  </div>
+  <div class="kanban-info-btn">
+    <button mat-icon-button (click)="openInfoDialog()" aria-label="Tech Used">
+      <mat-icon>info</mat-icon>
+    </button>
+    <span class="info-label">Tech Used</span>
+  </div>
+  <ng-template #infoDialog>
+    <div class="info-dialog-content">
+      <h2><img src="https://angular.io/assets/images/logos/angular/angular.svg" alt="Angular" class="info-logo"> Angular Kanban Board</h2>
+      <h3>Folder Structure</h3>
+      <ul>
+        <li><b>src/app/kanban</b>: All Kanban board logic and components</li>
+        <li><b>src/app</b>: App shell and routing</li>
+      </ul>
+      <h3>Libraries Used</h3>
+      <ul>
+        <li><img src="https://angular.io/assets/images/logos/angular/angular.svg" class="lib-logo"> Angular</li>
+        <li><img src="https://material.angular.io/assets/img/angular-material-logo.svg" class="lib-logo"> Angular Material</li>
+        <li><img src="https://raw.githubusercontent.com/angular/components/main/src/cdk/logo.svg" class="lib-logo"> Angular CDK (Drag & Drop)</li>
+        <li><img src="https://sweetalert2.github.io/images/SweetAlert2.png" class="lib-logo"> SweetAlert2</li>
+      </ul>
+      <h3>Concepts Covered</h3>
+      <ul>
+        <li>Component-based architecture</li>
+        <li>Standalone Angular components</li>
+        <li>Reusable and modular UI</li>
+        <li>State management with localStorage</li>
+        <li>Undo/Redo with stack-based state</li>
+        <li>Drag & Drop for cards and columns</li>
+        <li>Dialogs, menus, and modern UI/UX</li>
+      </ul>
+      <h3>Drag & Drop</h3>
+      <p>Implemented using <b>Angular CDK</b> for both cards and columns. Supports reordering and moving items between columns with smooth animations.</p>
+      <h3>Undo/Redo</h3>
+      <p>Implemented with stack-based state management. Each change is pushed to an undo stack, allowing users to revert or redo actions, covering concepts of immutability and state history.</p>
+    </div>
+  </ng-template>
+</div>

@@ -64,8 +64,8 @@ angular-kanban/
 
 ## Screenshots
 
-![Kanban Board Screenshot] (https://github.com/m-n9/kanban-board/blob/main/screenshots/app-screen.png)
-(https://github.com/m-n9/kanban-board/blob/main/screenshots/tech-used-screen.png)
+![Kanban Board Screenshot] (https://github.com/m-n9/kanban-board/blob/main/screenshots/app-screen.png?raw=true)
+(https://github.com/m-n9/kanban-board/blob/main/screenshots/tech-used-screen.png?raw=true)
 
 
 ## Why This Project?

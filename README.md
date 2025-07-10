@@ -66,10 +66,10 @@ angular-kanban/
 ## 📸 Screenshots
 
 ### Board view
-![Board View](https://github.com/m-n9/kanban-board/blob/main/screenshots/board-view.png?raw=true)
+![Board View](https://github.com/m-n9/kanban-board/blob/main/screenshots/app-screen.png?raw=true)
 
 ### Card view
-![Card View](https://github.com/m-n9/kanban-board/blob/main/screenshots/card-view.png?raw=true)
+![Card View](https://github.com/m-n9/kanban-board/blob/main/screenshots/tech-used-screen.png?raw=true)
 
 
 ## Why This Project?
